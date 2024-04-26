@@ -57,7 +57,7 @@ class Users(AbstractUser):
 
 
 class Symptoms(TimestampedModel):
-    name = models.CharField(max_length=1000,null=True, blank=True)
+    name = models.CharField(max_length=1500, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -71,21 +71,21 @@ class ChronicDiseases(TimestampedModel):
 
 
 class Medicine(TimestampedModel):
-    name = models.CharField(max_length=1000,null=True, blank=True)
+    name = models.CharField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 
 class Tests(TimestampedModel):
-    name = models.CharField(max_length=500)
+    name = models.CharField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return self.name
 
 
 class Doctors(TimestampedModel):
-    name = models.CharField(max_length=255,blank=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     specification = models.CharField(max_length=255, blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
@@ -99,8 +99,8 @@ class Doctors(TimestampedModel):
 
 
 class SymptomsTests(TimestampedModel):
-    symptoms = models.ForeignKey(Symptoms, on_delete=models.CASCADE)
-    tests = models.ForeignKey(Tests, on_delete=models.CASCADE)
+    symptoms = models.ForeignKey(Symptoms, on_delete=models.CASCADE, null=True, blank=True)
+    tests = models.ForeignKey(Tests, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.symptoms.name + ' ' + self.tests.name
@@ -109,14 +109,14 @@ class SymptomsTests(TimestampedModel):
 class UserStatus(TimestampedModel):
     min = models.DecimalField(max_digits=4, decimal_places=2, default=0.0, blank=True, null=True)
     max = models.DecimalField(max_digits=4, decimal_places=2, default=0.0, blank=True, null=True)
-    status = models.CharField(max_length=255)
+    status = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.status
 
 
 class MedicineAllergy(TimestampedModel):
-    name = models.CharField(max_length=1000,null=True, blank=True)
+    name = models.CharField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -148,7 +148,7 @@ class Readings(TimestampedModel):
 
 
 class Hospitals(TimestampedModel):
-    name = models.CharField(max_length=255,null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
     phone = models.IntegerField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(upload_to="image", blank=True, null=True)
@@ -161,7 +161,7 @@ class Hospitals(TimestampedModel):
 
 
 class Laps(TimestampedModel):
-    name = models.CharField(max_length=255,null=True, blank=True)
+    name = models.CharField(max_length=255, null=True, blank=True)
     phone = models.IntegerField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     image = models.ImageField(upload_to="image", blank=True, null=True)
